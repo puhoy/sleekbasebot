@@ -6,12 +6,6 @@ import sys
 import sleekxmpp
 import logging
 
-import queue
-
-# Python versions before 3.0 do not use UTF-8 encoding
-# by default. To ensure that Unicode is handled properly
-# throughout SleekXMPP, we will set the default encoding
-# ourselves to UTF-8.
 if sys.version_info < (3, 0):
     reload(sys)
     sys.setdefaultencoding('utf8')
@@ -67,19 +61,6 @@ class XmppBotBase(sleekxmpp.ClientXMPP):
         self.settings = settings
 
         self.admins = settings.get('admins', [])
-
-        if self.connect():
-            # If you do not have the dnspython library installed, you will need
-            # to manually specify the name of the server if it does not match
-            # the one in the JID. For example, to use Google Talk you would
-            # need to use:
-            #
-            # if xmpp.connect(('talk.google.com', 5222)):
-            #     ...
-            self.process(blocking=False)
-            #print("Done")
-        else:
-            logging.error("Unable to connect.")
 
 
     def start(self, event):
@@ -138,16 +119,5 @@ class XmppBotBase(sleekxmpp.ClientXMPP):
                     # msg.reply("cmd not found...").send()
                     pass
 
-    def command_help(self, *args, **kwargs):
-        '''
 
-        :return:
-        '''
-        msg = args[0]
-        if self.commands.get(msg[1], False) \
-            or self.commands.get(msg[1][1:], False):
-            for command in self.commands:
-                command(self)
-
-        msg.reply('commands: %s' % ' '.join(self.commands.keys())).send()
 

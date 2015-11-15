@@ -1,21 +1,29 @@
 from sleekbasebot import SleekBaseBot
-from sleekbasebot.commands import muc
-from sleekbasebot.decorators import arguments
+from sleekbasebot.commands import muc, help
+from sleekbasebot.decorators import arguments, admin_only
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-@arguments('first_argument', min=1, usage='')
+@arguments('first_argument', min=0, usage='!echo')
 def command_echo(msg, **kwargs):
     logging.debug('sending echo')
     msg.reply(kwargs['first_argument']).send()
 
 
+@admin_only(reply_string='you are no admin!')
+@arguments('first_argument', min=1, usage='!aecho')
+def command_admin_echo(msg, **kwargs):
+    logging.debug('sending echo')
+    msg.reply('admin ' + kwargs['first_argument']).send()
+
 commands = {
     # !help is generated from commands in this dict and their usage
     '!echo': command_echo,
-    '!join': muc.command_join_room
+    '!aecho': command_admin_echo,
+    '!join': muc.command_join_room,
+    '!help': help.command_help
 }
 
 settings = {
@@ -41,3 +49,8 @@ if __name__ == '__main__':
         settings['admins'].append(args.admin)
 
     bot = SleekBaseBot(jid=args.jid, password=args.password, commands=commands, settings=settings)
+
+    if bot.connect():
+        bot.process(blocking=False)
+    else:
+        print("Unable to connect.")

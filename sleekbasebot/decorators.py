@@ -17,7 +17,7 @@ def admin_only(reply_string='admins only!'):
             admins = bot.settings['admins']
             sender=msg.get('from').bare
             if sender in admins:
-                func(msg)
+                func(bot, msg)
             else:
                 logging.debug('admin command %s called by non-admin %s' % (msg['body'].split()[0], sender))
                 if reply_string:
@@ -33,9 +33,10 @@ def arguments(*args, **kwargs):
     '''
     def dec(func):
         def wrap(bot, msg):
+            message_split=msg['body'].split()
+            print(len(message_split)-1)
+            if len(message_split)-1 >= kwargs.get('min', 0):
 
-            message_split=msg['body'].rstrip().split(' ')
-            if len(message_split)-1 >= kwargs['min']:
                 # combine args and msg_split
                 func_kwargs = {}
                 func_kwargs['sender'] = msg['from']
