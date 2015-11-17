@@ -6,6 +6,7 @@ just add settings and implement commands.
 
     from sleekbasebot.decorators import arguments, admin_only
     from sleekbasebot.commands import help
+    import logging
     
     @admin_only(reply_string='you are no admin!')
     @arguments('first_argument', min=0, usage='!echo')
@@ -15,8 +16,9 @@ just add settings and implement commands.
     
     
     commands = {
-        '!echo': echo.command_echo,
-        '!help': help.command_help
+        #'command-trigger_in_chat': executed_command,
+        '!echo': command_echo,
+        '!help': help.command_help # help generates a dynamic help from usage in commands
         }
     
     settings = {
