@@ -12,8 +12,8 @@ setup(
   author = 'Jan Hartmann',
   author_email = 'stuff@kwoh.de',
   license='MIT',
-  url = '',
-  keywords = ['xmpp', 'sleekxmpp'],
+  url = 'https://github.com/puhoy/sleekbasebot',
+  keywords = ['xmpp', 'sleekxmpp', 'bot'],
   classifiers=[
     # How mature is this project? Common values are
     #   3 - Alpha
