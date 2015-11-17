@@ -6,14 +6,13 @@ import os
 
 formatter = logging.Formatter('%(asctime)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
-log_folder = 'muc_logs'
-if not os.path.exists(log_folder):
-    os.makedirs(log_folder)
 
-def log(msg):
+def log(bot, msg):
+    if not os.path.exists(bot.settings['muc_logging']):
+        os.makedirs(bot.settings['muc_logging'])
     room = msg.get('from').bare
     logger = logging.getLogger(room)
-    filehandler = RotatingFileHandler(os.path.join(log_folder, room + '.log'))
+    filehandler = RotatingFileHandler(os.path.join(bot.settings['muc_logging'], room + '.log'))
     filehandler.setFormatter(formatter)
 
     logger.addHandler(filehandler)

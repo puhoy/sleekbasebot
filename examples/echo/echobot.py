@@ -23,6 +23,7 @@ settings = {
 
 
 if __name__ == '__main__':
+    # prepare
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--jid", help="the bots jabber id")
@@ -37,6 +38,7 @@ if __name__ == '__main__':
     if not args.admin in settings['admins']:
         settings['admins'].append(args.admin)
 
+    # start the echobot!
     bot = SleekBaseBot(jid=args.jid, password=args.password, commands=commands, settings=settings)
 
     if bot.connect():

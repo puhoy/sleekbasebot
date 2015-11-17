@@ -4,7 +4,6 @@ from sleekbasebot.decorators import arguments
 
 @arguments('roomname', 'password', min=1, usage='!join <room>')
 def command_join_room(msg, **kwargs):
-    msg = kwargs['msg']
     room = kwargs['roomname']
     password = kwargs.get('password', None)
     #logging.info('joining %s' % room)

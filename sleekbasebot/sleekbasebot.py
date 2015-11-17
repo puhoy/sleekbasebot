@@ -5,6 +5,7 @@ import sys
 
 import sleekxmpp
 import logging
+from .muc_logging.muc_logging import log
 
 if sys.version_info < (3, 0):
     reload(sys)
@@ -109,6 +110,9 @@ class XmppBotBase(sleekxmpp.ClientXMPP):
                         pass
 
     def muc_message(self, msg):
+        if self.settings['muc_logging']:
+            log(self, msg)
+
         msg['body'] = msg['body'].strip()
         if msg['body'].split()[0] in list(self.commands.keys()):
             if len(msg['body']) >= 1:
