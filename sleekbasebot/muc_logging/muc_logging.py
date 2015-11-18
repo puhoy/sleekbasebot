@@ -12,8 +12,11 @@ def log(bot, msg):
         os.makedirs(bot.settings['muc_logging'])
     room = msg.get('from').bare
     logger = logging.getLogger(room)
-    filehandler = RotatingFileHandler(os.path.join(bot.settings['muc_logging'], room + '.log'))
-    filehandler.setFormatter(formatter)
+    logger.setLevel(logging.INFO)
 
-    logger.addHandler(filehandler)
+    if not logger.handlers:
+        filehandler = RotatingFileHandler(os.path.join(bot.settings['muc_logging'], room + '.log'))
+        filehandler.setFormatter(formatter)
+        logger.addHandler(filehandler)
+
     logger.info('%s: %s' % (msg['mucnick'], msg['body']))

@@ -6,14 +6,14 @@ just add settings and implement commands.
 
     from sleekbasebot.decorators import arguments, admin_only
     from sleekbasebot.commands import help
+    from sleekbasebot import SleekBaseBot
     import logging
     
     @admin_only(reply_string='you are no admin!')
-    @arguments('first_argument', min=0, usage='!echo')
+    @arguments('first_argument', min=1, usage='!echo <argument_to_echo>\necho the first argument')
     def command_echo(msg, **kwargs):
         logging.debug('sending echo')
         msg.reply(kwargs['first_argument']).send()
-    
     
     commands = {
         #'command-trigger_in_chat': executed_command,
