@@ -4,7 +4,7 @@ setup(
   name = 'sleekbasebot',
   #package_dir = {'': 'sleekbasebot'},
   packages = ['sleekbasebot', 'sleekbasebot.commands', 'sleekbasebot.muc_logging'],
-  version = '0.0.1',
+  version = '0.0.2',
   description = 'basic sleekxmpp bot with argument parsing and muc logging',
   install_requires=[
         "sleekxmpp",
